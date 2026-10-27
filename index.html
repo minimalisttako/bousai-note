@@ -1,125 +1,31 @@
-
-
 <!DOCTYPE html>
-
 <html lang="ja">
-
 <head>
-
-  <meta charset="UTF-8">
-
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <title>防災ノート</title>
-
-  <style>
-
-    body {
-
-      margin: 0;
-
-      background: #f6f8f7;
-
-      color: #26332d;
-
-      font-family: sans-serif;
-
-    }
-
-    header {
-
-      background: #438b72;
-
-      color: white;
-
-      padding: 28px 20px;
-
-      text-align: center;
-
-    }
-
-    h1 { margin: 0; }
-
-    main { padding: 20px; }
-
-    .card {
-
-      background: white;
-
-      padding: 20px;
-
-      margin-bottom: 15px;
-
-      border-radius: 16px;
-
-      box-shadow: 0 2px 8px #00000010;
-
-    }
-
-    button {
-
-      background: #438b72;
-
-      color: white;
-
-      border: 0;
-
-      border-radius: 10px;
-
-      padding: 12px 18px;
-
-      font-size: 16px;
-
-    }
-
-  </style>
-
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#438b72"><title>防災ノート</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f6f8f7;color:#26332d;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN",sans-serif}header{background:#438b72;color:#fff;padding:28px 20px;text-align:center}h1{margin:0;font-size:30px}header p{margin:12px 0 0}main{max-width:720px;margin:auto;padding:20px}.card{background:white;padding:20px;margin-bottom:15px;border-radius:16px;box-shadow:0 2px 8px #00000010}.card h2{margin:0 0 12px;font-size:22px}.card p{line-height:1.6}button{background:#438b72;color:white;border:0;border-radius:10px;padding:12px 18px;font-size:16px;font-weight:600;cursor:pointer}button:focus-visible,input:focus-visible{outline:3px solid #e7a847;outline-offset:2px}.secondary{background:#e8f1ed;color:#275c49}.danger{background:#fce9e9;color:#9b3232}.row{display:flex;align-items:center;justify-content:space-between;gap:10px}.muted{color:#61746a;font-size:14px}.item{display:flex;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid #edf0ee}.item:last-child{border-bottom:0}.item input{width:22px;height:22px;accent-color:#438b72;flex-shrink:0}.item label{flex:1;line-height:1.5}.done{text-decoration:line-through;color:#78877f}.progress{height:10px;background:#e4ece8;border-radius:10px;overflow:hidden;margin:12px 0}.bar{height:100%;background:#438b72;transition:width .2s}.back{margin-bottom:15px}.field{display:flex;flex-direction:column;gap:5px;flex:1;min-width:0}.field input{width:100%;border:1px solid #bdccc4;border-radius:9px;padding:11px;font-size:16px;background:#fff;color:#26332d}.formrow{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0}.stock{border-top:1px solid #edf0ee;padding:14px 0}.stock:first-child{border-top:0}.stock small{display:block;color:#61746a;margin:6px 0}.actions{display:flex;gap:8px;flex-wrap:wrap}.actions button{padding:8px 12px;font-size:14px}.empty{color:#61746a}.warning{color:#a34826;font-weight:600}footer{text-align:center;padding:0 20px 30px;color:#61746a;font-size:12px}#notice{min-height:1.4em;color:#a34826;font-size:14px}
+</style>
 </head>
-
-<body>
-
-  <header>
-
-    <h1>🐙 防災ノート</h1>
-
-    <p>片付けから始める、わが家の防災</p>
-
-  </header>
-
-  <main>
-
-    <div class="card">
-
-      <h2>🏠 お部屋の防災</h2>
-
-      <p>片付けながら安全な家にしましょう。</p>
-
-      <button onclick="alert('準備中です')">はじめる</button>
-
-    </div>
-
-    <div class="card">
-
-      <h2>🎒 防災リュック</h2>
-
-      <p>本当に必要なものを確認しましょう。</p>
-
-      <button onclick="alert('準備中です')">チェックする</button>
-
-    </div>
-
-    <div class="card">
-
-      <h2>📦 備蓄品管理</h2>
-
-      <p>食料や日用品の備蓄を管理しましょう。</p>
-
-      <button onclick="alert('準備中です')">確認する</button>
-
-    </div>
-
-  </main>
-
-</body>
-
-</html>
+<body><header><h1>🐙 防災ノート</h1><p>片付けから始める、わが家の防災</p></header><main id="app"></main><footer>記録はこのブラウザ内に保存されます。</footer>
+<script>
+'use strict';
+const KEY='bousai-note-v1';
+const groups={room:{title:'🏠 お部屋の防災',description:'片付けながら安全な家にしましょう。',items:['出入口や廊下に物を置かない','寝室の家具が倒れてこない配置にする','背の高い家具を固定する','棚の上の重い物を下ろす','ガラスの飛散防止を確認する','非常用の靴とライトの置き場所を決める','家族で避難経路を確認する']},bag:{title:'🎒 防災リュック',description:'必要な物を自分の生活に合わせて確認しましょう。',items:['飲料水','携帯トイレ','ライトと予備電池','モバイルバッテリーとケーブル','常備薬・衛生用品','携行しやすい非常食','防寒・雨対策','連絡先の控え','リュックを背負って重さを確認する','不要な物や期限切れの物を取り除く']}};
+const defaults=()=>({checks:{room:{},bag:{}},stocks:[]});
+let data=defaults();let page='home';
+try{const saved=JSON.parse(localStorage.getItem(KEY)||'null');if(saved&&typeof saved==='object'){data.checks={room:(saved.checks&&saved.checks.room)||{},bag:(saved.checks&&saved.checks.bag)||{}};data.stocks=Array.isArray(saved.stocks)?saved.stocks.filter(x=>x&&typeof x.name==='string'):[];}}catch(e){}
+const app=document.getElementById('app');
+function save(){try{localStorage.setItem(KEY,JSON.stringify(data));return true}catch(e){alert('保存できませんでした。ブラウザの空き容量やプライベートブラウズの設定をご確認ください。');return false}}
+function el(tag,cls,txt){const x=document.createElement(tag);if(cls)x.className=cls;if(txt!==undefined)x.textContent=txt;return x}
+function button(txt,fn,cls=''){const b=el('button',cls,txt);b.type='button';b.addEventListener('click',fn);return b}
+function card(title){const c=el('section','card');c.append(el('h2','',title));return c}
+function progress(group){const arr=groups[group].items;const n=arr.filter((_,i)=>data.checks[group][i]).length;return {n,total:arr.length,pct:Math.round(n/arr.length*100)}}
+function meter(c,p){const label=el('p','muted',`${p.n} / ${p.total} 項目完了（${p.pct}%）`);const track=el('div','progress');track.setAttribute('role','progressbar');track.setAttribute('aria-valuenow',String(p.pct));track.setAttribute('aria-valuemin','0');track.setAttribute('aria-valuemax','100');const bar=el('div','bar');bar.style.width=p.pct+'%';track.append(bar);c.append(label,track)}
+function home(){for(const k of ['room','bag']){const g=groups[k],c=card(g.title);c.append(el('p','',g.description));meter(c,progress(k));c.append(button(k==='room'?'はじめる':'チェックする',()=>go(k)));app.append(c)}const c=card('📦 備蓄品管理');c.append(el('p','','食料や日用品の備蓄を管理しましょう。'),el('p','muted',`登録済み：${data.stocks.length}種類`),button('確認する',()=>go('stocks')));app.append(c)}
+function checklist(k){const g=groups[k],c=card(g.title);c.append(el('p','',g.description));const summary=el('div');c.append(summary);g.items.forEach((name,i)=>{const row=el('div','item'),input=el('input'),label=el('label','',name);input.type='checkbox';input.id=k+'-'+i;input.checked=!!data.checks[k][i];label.htmlFor=input.id;if(input.checked)label.classList.add('done');input.addEventListener('change',()=>{data.checks[k][i]=input.checked;if(!save()){input.checked=!input.checked;data.checks[k][i]=input.checked;return}label.classList.toggle('done',input.checked);summary.replaceChildren();meter(summary,progress(k))});row.append(input,label);c.append(row)});meter(summary,progress(k));app.append(c)}
+function stockPage(){const c=card('📦 備蓄品管理');c.append(el('p','muted','期限がある物は日付も登録できます。数量は目安として入力してください。'));const form=el('form');const fields=el('div','formrow');const nameField=el('label','field','品名'),qtyField=el('label','field','数量'),dateField=el('label','field','期限（任意）');const name=el('input'),qty=el('input'),date=el('input');name.required=true;name.maxLength=80;name.placeholder='例：飲料水 2L';qty.type='number';qty.min='0';qty.max='999999';qty.step='1';qty.required=true;qty.value='1';date.type='date';nameField.append(name);qtyField.append(qty);dateField.append(date);fields.append(nameField,qtyField,dateField);form.append(fields);const add=el('button','','追加する');add.type='submit';form.append(add);const notice=el('p');notice.id='notice';form.append(notice);form.addEventListener('submit',e=>{e.preventDefault();const q=Number(qty.value);if(!name.value.trim()||!Number.isSafeInteger(q)||q<0){notice.textContent='品名と正しい数量を入力してください。';return}const entry={id:Date.now()+'-'+Math.random().toString(36).slice(2),name:name.value.trim(),qty:q,date:date.value};data.stocks.push(entry);if(!save()){data.stocks.pop();return}go('stocks')});c.append(form);app.append(c);const list=card('登録した備蓄品');if(!data.stocks.length)list.append(el('p','empty','まだ登録されていません。'));const today=new Date();const localToday=`${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`;data.stocks.forEach(item=>{const r=el('div','stock'),heading=el('strong','',item.name);r.append(heading,el('small','',`数量：${item.qty}　期限：${item.date||'未設定'}`));if(item.date&&item.date<localToday)r.append(el('p','warning','期限が過ぎています'));const actions=el('div','actions');actions.append(button('数量 −1',()=>changeQty(item,-1),'secondary'),button('数量 ＋1',()=>changeQty(item,1),'secondary'),button('削除',()=>{if(confirm(`「${item.name}」を削除しますか？`)){const old=data.stocks;data.stocks=old.filter(x=>x.id!==item.id);if(!save())data.stocks=old;else go('stocks')}},'danger'));r.append(actions);list.append(r)});app.append(list)}
+function changeQty(item,diff){const old=item.qty;item.qty=Math.max(0,Math.min(999999,old+diff));if(!save())item.qty=old;else go('stocks')}
+function go(next){page=next;app.replaceChildren();if(page!=='home')app.append(button('← トップに戻る',()=>go('home'),'secondary back'));if(page==='home')home();else if(page==='stocks')stockPage();else checklist(page);window.scrollTo(0,0)}
+go('home');
+</script></body></html>
